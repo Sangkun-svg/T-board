@@ -1,6 +1,4 @@
-import * as React from "react";
 import { faker } from "@faker-js/faker";
-
 import {
   Table,
   TableBody,
@@ -13,13 +11,15 @@ import {
 import styled from "styled-components";
 
 export const App = () => {
-  const tableCells = ["Name", "E-mail", "Address(City)", "Phone"];
+  faker.setLocale("ko");
   const {
     internet: { userName, email },
     address: { cityName },
     phone: { phoneNumber },
   } = faker;
-  faker.setLocale("ko");
+
+  const TableCells = ["Name", "E-mail", "Address(City)", "Phone"];
+
   const user = Array(50)
     .fill(null)
     .map(() => ({
@@ -28,14 +28,14 @@ export const App = () => {
       address: cityName(),
       phone: phoneNumber("010-####-####"),
     }));
-  user.map((el) => console.log(el));
+
   return (
     <Wrapper>
       <TableContainer component={Paper}>
         <Table size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
-              {tableCells.map((col) => {
+              {TableCells.map((col) => {
                 return <TableCell align="center">{col}</TableCell>;
               })}
             </TableRow>
