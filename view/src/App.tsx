@@ -20,7 +20,7 @@ export const App = () => {
 
   const TableCells = ["Name", "E-mail", "Address(City)", "Phone"];
 
-  const user = Array(50)
+  const users = Array(10)
     .fill(null)
     .map(() => ({
       name: userName(),
@@ -41,7 +41,7 @@ export const App = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {user.map((user) => {
+            {users.map((user) => {
               const { name, email, address, phone } = user;
               return (
                 <TableRow>
