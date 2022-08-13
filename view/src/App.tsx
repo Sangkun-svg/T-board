@@ -33,13 +33,13 @@ export const App = () => {
     <Wrapper>
       <TableContainer component={Paper}>
         <Table size="small" aria-label="a dense table">
-          <TableHead>
+          <TableHeadCustom>
             <TableRow>
               {TableCells.map((col) => {
                 return <TableCell align="center">{col}</TableCell>;
               })}
             </TableRow>
-          </TableHead>
+          </TableHeadCustom>
           <TableBody>
             {users.map((user) => {
               const { name, email, address, phone } = user;
@@ -64,4 +64,8 @@ const Wrapper = styled.div`
   margin-top: 5%;
   height: auto;
   border: 2px solid gray;
+`;
+
+const TableHeadCustom = styled(TableHead)`
+  background-color: #d3d3d3;
 `;
