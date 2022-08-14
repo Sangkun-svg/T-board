@@ -9,6 +9,7 @@ import {
   Paper,
 } from "@mui/material";
 import styled from "styled-components";
+import { CreateButton } from "./components";
 
 export const App = () => {
   faker.setLocale("ko");
@@ -31,6 +32,7 @@ export const App = () => {
 
   return (
     <Wrapper>
+      <CreateButton />
       <TableContainer component={Paper}>
         <Table size="small" aria-label="a dense table">
           <TableHeadCustom>
@@ -63,7 +65,6 @@ const Wrapper = styled.div`
   margin-left: 15%;
   margin-top: 5%;
   height: auto;
-  border: 2px solid gray;
 `;
 
 const TableHeadCustom = styled(TableHead)`
