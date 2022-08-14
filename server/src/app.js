@@ -5,7 +5,7 @@ const router = express.Router();
 
 app.set("port", process.env.PORT || 8090);
 
-app.get("/", (req, res) => {
+app.get("/create", (req, res) => {
   res.send("Hello, Express");
   console.log("Hello, Express");
 });
