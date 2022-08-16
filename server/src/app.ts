@@ -1,5 +1,3 @@
 import express from "express";
 
-// ################################################
-// 🛡️  Server listening on port: 8080🛡️
-// ################################################
+export const app = express();
