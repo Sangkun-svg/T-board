@@ -5,7 +5,10 @@
   "main": "app.js",
   "scripts": {
     "test": "test",
-    "dev": "nodemon --exec ts-node -- src/server.ts"
+    "dev": "nodemon --exec ts-node -- src/server.ts",
+    "migrationsCreate": "cd src && npx sequelize migration:create --name addBColumn",
+    "migrationsUp": "cd src && npx sequelize-cli db:migrate",
+    "migrationsDow": "cd src && npx sequelize-cli db:migrate:undo:all"
   },
   "author": "",
   "license": "MIT",
