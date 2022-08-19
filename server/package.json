@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "test",
+    "test": "jest",
     "dev": "nodemon --exec ts-node -- src/server.ts",
     "migrationsCreate": "cd src && npx sequelize migration:create --name addBColumn",
     "migrationsUp": "cd src && npx sequelize-cli db:migrate",
