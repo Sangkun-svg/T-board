@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "jest --watchAll",
+    "test": "jest",
+    "jest": "jest --watchAll",
     "dev": "nodemon --exec ts-node -- src/server.ts",
     "migrationsCreate": "cd src && npx sequelize migration:create --name addBColumn",
     "migrationsUp": "cd src && npx sequelize-cli db:migrate",
@@ -32,6 +33,7 @@
     "cors": "^2.8.5",
     "jest": "^28.1.3",
     "morgan": "^1.10.0",
+    "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
     "sequelize": "^6.21.3",
     "sequelize-cli": "^6.4.1",
