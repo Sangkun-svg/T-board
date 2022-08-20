@@ -15,7 +15,7 @@ beforeAll(async () => {
     .authenticate()
     .then(() => {
       console.info("connected to db");
-      return dbConfig.drop();
+      // return dbConfig.drop();
     })
     .catch((err) => {
       console.error("Errordb ", err);
