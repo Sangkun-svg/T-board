@@ -13,6 +13,11 @@ module.exports = {
         type: Sequelize.STRING(50),
         allowNull: true,
       },
+      address: {
+        type: Sequelize.STRING(50),
+        allowNull: true,
+      },
+
       email: {
         type: Sequelize.STRING(50),
         allowNull: true,
@@ -20,6 +25,14 @@ module.exports = {
       phone: {
         type: Sequelize.STRING(50),
         allowNull: true,
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW,
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW,
       },
     });
   },
