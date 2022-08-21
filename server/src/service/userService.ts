@@ -3,23 +3,7 @@
 // https://www.ultimateakash.com/blog-details/IiwzPGAKYAo=/How-to-implement-Transactions-in-Sequelize-&-Node.Js-(Express)
 import { dbConfig } from "../db/sequelize";
 import { User } from "../model";
-import { faker } from "@faker-js/faker";
-
-faker.setLocale("ko");
-const {
-  internet: { userName, email },
-  address: { cityName },
-  phone: { number },
-} = faker;
-
-interface IUserCreate {
-  name: string;
-  email: string;
-  address: string;
-  phone: string;
-}
-interface IUserUpdate {}
-interface IUserDelete {}
+import { IUserCreate, IUserUpdate } from "../interface/request";
 
 class UserService {
   private static instance: UserService;
@@ -38,29 +22,70 @@ class UserService {
       t.commit();
       return user;
     } catch (error) {
-      //   await t.rollback();
-      console.error("Error : ", error);
-      //   throw new Error(); //TODO: need to error handling
+      await t.rollback();
+      throw new Error(); //TODO: need to error handling
     }
   }
+
   public async update(obj: IUserUpdate) {
     const t = await dbConfig.transaction();
     try {
+      const result = await User.update(
+        {
+          name: obj.name,
+          phone: obj.phone,
+          email: obj.email,
+          address: obj.address,
+        },
+        {
+          where: {
+            id: obj.id,
+          },
+        }
+      );
       t.commit();
+      return result;
     } catch (error) {
       await t.rollback();
       throw new Error(); //TODO: need to error handling
     }
   }
-  public async delete(obj: IUserDelete) {
+
+  public async softDelete(id: number) {
     const t = await dbConfig.transaction();
     try {
+      const result = await User.update(
+        { isDeleted: true },
+        {
+          where: {
+            id: id,
+          },
+        }
+      );
       t.commit();
+      return result;
     } catch (error) {
       await t.rollback();
       throw new Error(); //TODO: need to error handling
     }
   }
+
+  public async hardDelete(id: number) {
+    const t = await dbConfig.transaction();
+    try {
+      const result = await User.destroy({
+        where: {
+          id: id,
+        },
+      });
+      t.commit();
+      return result;
+    } catch (error) {
+      await t.rollback();
+      throw new Error(); //TODO: need to error handling
+    }
+  }
+
   public async getUsers() {
     try {
       const user = await User.findAll();
@@ -70,8 +95,11 @@ class UserService {
       throw new Error();
     }
   }
-  public async getUserById() {
+
+  public async getUserById(id: number) {
     try {
+      const user = await User.findByPk(id);
+      return user;
     } catch (error) {
       throw new Error();
     }
