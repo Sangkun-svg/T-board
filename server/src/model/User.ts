@@ -1,7 +1,7 @@
 import { Sequelize, Model, DataTypes } from "sequelize";
 import { dbConfig } from "../db/sequelize";
 
-const { STRING, INTEGER, DATE, NOW } = DataTypes;
+const { STRING, INTEGER, DATE, NOW, BOOLEAN } = DataTypes;
 //TODO: add parent obj for default columns
 export const User = dbConfig.define("users", {
   id: {
@@ -32,5 +32,9 @@ export const User = dbConfig.define("users", {
   updatedAt: {
     type: DATE,
     defaultValue: NOW,
+  },
+  isDeleted: {
+    type: BOOLEAN,
+    defaultValue: false,
   },
 });
