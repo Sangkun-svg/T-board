@@ -1,1 +1,1 @@
-export {} from "";
+export { userServiceInstance } from "./userService";

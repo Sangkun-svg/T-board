@@ -5,7 +5,7 @@ export const dbConfig = new sequelize.Sequelize(
   process.env.DB_USER || "root",
   process.env.DB_PASSWORD || "1234",
   {
-    logging: false,
+    logging: true,
     port: Number(process.env.DB_PORT) || 3306,
     host: process.env.DB_HOST || "127.0.0.1",
     dialect: "mysql",
@@ -17,11 +17,11 @@ export const dbConfig = new sequelize.Sequelize(
     },
     define: {
       // don't add the timestamp attributes (updatedAt, createdAt)
-      timestamps: false,
+      timestamps: true,
       // If don't want createdAt
-      createdAt: false,
+      // createdAt: false,
       // If don't want updatedAt
-      updatedAt: false,
+      // updatedAt: false,
     },
   }
 );
