@@ -1,19 +1,23 @@
 //TODO: study : tsoa란? & tsoa를 활용한 restfut api
 import {
   Body,
+  Path,
   Controller,
   Get,
   Put,
   Post,
   Delete,
-  Path,
-  Query,
   Route,
   SuccessResponse,
+  Patch,
 } from "tsoa";
+import { userServiceInstance } from "../service";
 
+@Route("member")
+@SuccessResponse("200", "successfully")
 export class UserController extends Controller {
   private static instance: UserController;
+  private userService = userServiceInstance;
 
   public static getInstance() {
     if (!UserController.instance) {
@@ -22,25 +26,36 @@ export class UserController extends Controller {
     return UserController.instance;
   }
 
-  @Get("/users")
+  @Get("/")
   public async getUsers(): Promise<any> {
-    return null;
+    const result = await this.userService.getUsers();
+    return result;
   }
-  @Get("/user/:id")
-  public async getUserById(id: Number): Promise<any> {
-    return null;
+  @Get("/{id}")
+  public async getUserById(id: number): Promise<any> {
+    const result = await this.userService.getUserById(id);
+    return result;
   }
   @Post("/create")
-  public async create(): Promise<any> {
-    return null;
+  public async create(data: Object | any): Promise<any> {
+    const result = await this.userService.create(data);
+    return result;
   }
   @Put("/update")
-  public async update(): Promise<any> {
-    return null;
+  public async update(data: Object | any): Promise<any> {
+    const result = await this.userService.update(data);
+    return result;
   }
+  @Patch("/softDelete")
+  public async softDelete(id: number): Promise<any> {
+    const result = await this.userService.softDelete(id);
+    return result;
+  }
+
   @Delete("/delete")
-  public async deleteUser(id: Number): Promise<any> {
-    return null;
+  public async deleteUser(id: number): Promise<any> {
+    const result = await this.userService.hardDelete(id);
+    return result;
   }
 }
-export const userControllerInstance = UserController.getInstance();
+export const userController = UserController.getInstance();
