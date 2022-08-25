@@ -62,6 +62,7 @@ const getUserById = (req: Request, res: Response, next: NextFunction) => {
 };
 
 // TODO: refactor for RESTful & graceful request method
-userRouter.route("/users").get(getUsers);
-userRouter.route("/users/create").get(create);
-userRouter.route("/users/:id").get(getUserById).delete(deleteUser).put(update);
+userRouter.route("/").get(getUsers);
+userRouter.route("/create").get(create);
+userRouter.route("/update").put(update);
+userRouter.route("/:id").get(getUserById).delete(deleteUser);
