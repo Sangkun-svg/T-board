@@ -60,18 +60,12 @@ test("User update", async () => {
   expect(Number(result)).toBe(1);
 });
 
-test("User soft delete", async () => {
-  const userId = 1;
-  const result = await userServiceInstance.softDelete(userId);
-  console.log(result);
-  expect(Number(result)).toBe(1);
-});
-
-test("User hard delete", async () => {
-  const userId = 50;
-  const result = await userServiceInstance.hardDelete(userId);
-  console.log(result);
-  expect(Number(result)).toBe(1);
+test("User delete", async () => {
+  const user = await userServiceInstance.getUserById(1);
+  if (user.isDeleted === false) {
+    const result = await userServiceInstance.softDelete(1);
+    expect(Number(result)).toBe(1);
+  }
 });
 
 afterAll(() => {
