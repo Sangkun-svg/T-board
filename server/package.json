@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "jest": "jest --watchAll",
-    "dev": "nodemon --exec ts-node -- src/server.ts",
+    "dev": "NODE_ENV=development nodemon --exec ts-node -- src/server.ts",
+    "prod": "NODE_ENV=production nodemon --exec ts-node -- src/server.ts",
     "migrationsCreate": "cd src && npx sequelize migration:create --name addBColumn",
     "migrationsUp": "cd src && npx sequelize-cli db:migrate",
     "migrationsDown": "cd src && npx sequelize-cli db:migrate:undo:all"
