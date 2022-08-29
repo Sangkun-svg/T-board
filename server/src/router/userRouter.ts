@@ -1,6 +1,6 @@
 import * as express from "express";
 import { NextFunction, Request, Response } from "express";
-import { userController } from "../controller/userController";
+import { userController } from "../controller";
 
 export const userRouter = express.Router();
 
