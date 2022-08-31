@@ -7,6 +7,14 @@ import express from "express";
 
 // Reference: https://crmrelease.tistory.com/106
 
+// Reference: https://jestjs.io/docs/expect
+// toBeTruly & toBeFalsy
+// toBeNull
+// toEqual
+// etc..
+
+// TODO: change expect methods according to return value type
+
 const app = express();
 app.get("/", (req, res) => res.send("Hello World!"));
 faker.setLocale("ko");
