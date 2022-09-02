@@ -6,6 +6,7 @@
 // TODO:
 // DIVIDE
 
+// INFO:  file Location : Preference -> Settings -> TODO Highlight -> Click "Edit in settings.js"
 const todo_highlight_custom_code = {
   "workbench.startupEditor": "none",
   "editor.formatOnSave": true,
