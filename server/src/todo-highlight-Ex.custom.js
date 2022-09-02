@@ -1,6 +1,6 @@
 // ERROR:
 // NOTE:
-// INFO: setting the last parameter to zero (alpha channel) disables the background colour
+// INFO:  ..
 // Reference:
 // FIXME:
 // TODO:
