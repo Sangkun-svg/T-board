@@ -1,58 +1,73 @@
 import "regenerator-runtime";
 import { faker } from "@faker-js/faker";
 import { userServiceInstance } from "../service";
+import { userController } from "../controller";
 import { dbConfig } from "../db/sequelize";
 import request from "supertest";
 import express from "express";
 
-// Reference: https://crmrelease.tistory.com/106
+/* TODO:  set OCP
+beforeAll(async () => {
+  await dbConfig
+    .authenticate()
+    .then(() => {
+      console.info("connected to db");
+      // return dbConfig.drop();
+    })
+    .catch((err) => {
+      console.error("Errordb ", err);
+      throw "error";
+    });
+});
+----------------------------------------
+afterAll(() => {
+  dbConfig.close();
+});
+*/
 
-// Reference: https://jestjs.io/docs/expect
-// toBeTruly & toBeFalsy
-// toBeNull
-// toEqual
-// etc..
+/* Reference: https://jestjs.io/docs/expect
+toBeTruly & toBeFalsy
+toBeNull
+toEqual
+etc..
+*/
 
-// TODO: change expect methods according to return value type
+/* Reference: https://crmrelease.tistory.com/106 */
+const text = `
+data 를 직접적으로 관리(Create , Read , Update , Delete etc..) 하는 API의 경우, 모델을 대상으로 데이터에 접근하는 로직만을 작성하여 테스트하다
+기본적인 유닛테스트 시나리오
+
+- controller의 함수 반환 여부
+- 모델 호출 여부
+- 쿼리 전달 여부
+- 성공시 Return value
+- 성공시 Return code
+- 실패시 Return value
+- 실패시 Return code
+- 에러시 메세지 전달
+
+`;
 
 const app = express();
-app.get("/", (req, res) => res.send("Hello World!"));
 faker.setLocale("ko");
 const {
   internet: { userName, email },
   address: { cityName },
   phone: { number },
 } = faker;
+const typeof_Function = "function";
 
-//TODO: 통합 테스트 O/C code
-// beforeAll(async () => {
-//   await dbConfig
-//     .authenticate()
-//     .then(() => {
-//       console.info("connected to db");
-//       // return dbConfig.drop();
-//     })
-//     .catch((err) => {
-//       console.error("Errordb ", err);
-//       throw "error";
-//     });
-// });
-// ----------------------------------------
-// afterAll(() => {
-//   dbConfig.close();
-// });
+describe("Create Test", () => {
+  //TODO: Controller의 함수 반환 여부
+  test.only("User create Cotroller 함수 반환 여부 테스트", () => {
+    expect(typeof userController.create).toBe(typeof_Function);
+  });
+  //TODO: 모델 호출 여부
+});
 
-/* 
-TODO: Unit test snerio
-  - controller의 함수 반환 여부
-  - 모델 호출 여부
-  - 쿼리 전달 여부
-  - 성공시 Return value
-  - 성공시 Return code
-  - 실패시 Return value
-  - 실패시 Return code
-  - 에러시 메세지 전달
-*/
+// DIVIDER : 유저 생성 테스트를 develop 하기 위해 원본과 복사본에 대한 분리
+// DIVIDER
+// DIVIDER
 
 describe("User Create Test", () => {
   test("user create request", async () => {
