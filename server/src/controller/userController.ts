@@ -11,13 +11,13 @@ import {
   SuccessResponse,
   Patch,
 } from "tsoa";
-import { userServiceInstance } from "../service";
+import { userService } from "../service";
 
 @Route("member")
 @SuccessResponse("200", "successfully")
 export class UserController extends Controller {
   private static instance: UserController;
-  private userService = userServiceInstance;
+  private userService = userService;
 
   public static getInstance() {
     if (!UserController.instance) {

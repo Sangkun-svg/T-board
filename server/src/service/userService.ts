@@ -106,4 +106,4 @@ class UserService {
     }
   }
 }
-export const userServiceInstance = UserService.getInstance();
+export const userService = UserService.getInstance();
