@@ -48,13 +48,15 @@ export class App {
     }
   }
   private connectdb = () => {
-    dbConfig
-      .authenticate()
-      .then(() => console.info("connected to db"))
-      .catch((err) => {
-        console.error("Errordb ", err);
-        throw "error";
-      });
+    if (process.env.NODE_ENV !== "test") {
+      dbConfig
+        .authenticate()
+        .then(() => console.info("connected to db"))
+        .catch((err) => {
+          console.error("Errordb ", err);
+          throw "error";
+        });
+    }
   };
 
   private async setMiddleWare() {
