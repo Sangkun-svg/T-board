@@ -5,6 +5,7 @@
 // FIXME:
 // TODO:
 // DIVIDE
+// SUCCESS
 
 // INFO:  file Location : Preference -> Settings -> TODO Highlight -> Click "Edit in settings.js"
 const todo_highlight_custom_code = {
@@ -31,6 +32,14 @@ const todo_highlight_custom_code = {
       border: "1px solid white",
       borderRadius: "2px", //NOTE: using borderRadius along with `border` or you will see nothing change
       backgroundColor: "rgba(0,0,0,.2)",
+    },
+    {
+      text: "SUCCESS",
+      color: "green",
+      font: "20px",
+      border: "1px solid green",
+      bolderRadius: "2px",
+      backgroundColor: "white",
     },
     {
       text: "ERROR:",
