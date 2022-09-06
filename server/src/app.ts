@@ -1,11 +1,11 @@
 import express from "express";
-import * as morgan from "morgan";
-//TODO: need replace
-import { User } from "./model";
+import morgan from "morgan";
+// import * as morgan from 'morgan';
+import { userRouter } from "./router";
 import { dbConfig } from "./db/sequelize";
 import cors from "cors";
 
-// app.js는 node module을 로딩하고
+// app.ts는 node module을 로딩하고
 // 초기 initialize해야 하는 변수나 Object를 선언하고 Router에 유입이 이루어 지는 그 유입점의 역할
 
 const options: cors.CorsOptions = {
@@ -48,13 +48,15 @@ export class App {
     }
   }
   private connectdb = () => {
-    dbConfig
-      .authenticate()
-      .then(() => console.info("connected to db"))
-      .catch((err) => {
-        console.error("Errordb ", err);
-        throw "error";
-      });
+    if (process.env.NODE_ENV !== "test") {
+      dbConfig
+        .authenticate()
+        .then(() => console.info("connected to db"))
+        .catch((err) => {
+          console.error("Errordb ", err);
+          throw "error";
+        });
+    }
   };
 
   private async setMiddleWare() {
@@ -70,7 +72,7 @@ export class App {
     this.app.use(cors(options));
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
-    // this.app.use("/api/user", userRouter);
-    this.app.use(morgan.default("dev"));
+    this.app.use("/api/user", userRouter);
+    this.app.use(morgan("dev"));
   }
 }

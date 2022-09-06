@@ -4,6 +4,7 @@
 import { dbConfig } from "../db/sequelize";
 import { User } from "../model";
 import { IUserCreate, IUserUpdate } from "../interface/request";
+import { IUser } from "../interface/response";
 
 class UserService {
   private static instance: UserService;
@@ -86,23 +87,23 @@ class UserService {
     }
   }
 
-  public async getUsers() {
+  public async getUsers(): Promise<IUser[]> {
     try {
-      const user = await User.findAll();
-      return user;
+      const users: IUser[] | any = await User.findAll();
+      return users;
     } catch (error) {
       console.error(error);
       throw new Error();
     }
   }
 
-  public async getUserById(id: number) {
+  public async getUserById(id: number): Promise<IUser> {
     try {
-      const user = await User.findByPk(id);
+      const user: IUser | any = await User.findByPk(id);
       return user;
     } catch (error) {
       throw new Error();
     }
   }
 }
-export const userServiceInstance = UserService.getInstance();
+export const userService = UserService.getInstance();

@@ -1,1 +1,1 @@
-export {} from "";
+export { baseUrl } from "./baseUrl";
