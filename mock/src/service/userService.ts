@@ -5,6 +5,7 @@ import { Sequelize } from "../db/sequelize";
 import { User } from "../model";
 import { IUserCreate, IUserUpdate } from "../interface/request";
 import { IUser } from "../interface/response";
+import _ from "lodash";
 
 class UserService {
   private static instance: UserService;
@@ -100,6 +101,9 @@ class UserService {
   public async getUserById(id: number): Promise<IUser> {
     try {
       const user: IUser | any = await User.findByPk(id);
+      if (_.isEmpty(user)) {
+        throw new Error("User not exist");
+      }
       return user;
     } catch (error) {
       throw new Error();
