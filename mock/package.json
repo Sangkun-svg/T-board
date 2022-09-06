@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon --exec ts-node -- src/server.ts",
-    "test": "jest app.test.ts --detectOpenHandles"
+    "test": "jest integration/user.test.ts --detectOpenHandles"
   },
   "author": "",
   "license": "ISC",
@@ -39,6 +39,7 @@
     "supertest": "^6.2.4",
     "ts-dotenv": "^0.8.3",
     "ts-jest": "^28.0.8",
+    "tsoa": "^4.1.2",
     "typescript-rest": "^3.0.4"
   }
 }
