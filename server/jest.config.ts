@@ -13,5 +13,11 @@ const config: Config.InitialOptions = {
   testMatch: ["**/test/*.test.ts"],
   verbose: true,
   forceExit: true,
+  moduleNameMapper: {
+    "@routes/(.*)$": "<rootDir>/src/router/$1",
+    "@controllers/(.*)$": "<rootDir>/src/controller/$1",
+    "@services/(.*)$": "<rootDir>/src/service/$1",
+    "@model/(.*)$": "<rootDir>/src/model/$1",
+  },
 };
 export default config;
