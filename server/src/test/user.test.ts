@@ -1,6 +1,6 @@
 import "regenerator-runtime";
 import { faker } from "@faker-js/faker";
-import { userServiceInstance } from "../service";
+import { userService } from "../service";
 import { userController } from "../controller";
 import { dbConfig } from "../db/sequelize";
 import request from "supertest";
@@ -84,19 +84,19 @@ describe("User Create Test", () => {
       address: cityName(),
       phone: number("010-####-####"),
     };
-    const users = await userServiceInstance.create(mockData);
+    const users = await userService.create(mockData);
     expect(!!users).toBe(true);
   });
 });
 
 describe("User searching Test", () => {
   test("Get all Users", async () => {
-    const users: any = await userServiceInstance.getUsers();
+    const users: any = await userService.getUsers();
     expect(!!users).toBe(true);
   });
 
   test("Get One User By UserId", async () => {
-    const users: any = await userServiceInstance.getUserById(1);
+    const users: any = await userService.getUserById(1);
     expect(!!users).toBe(true);
   });
 });
@@ -110,16 +110,16 @@ describe("User Update Test", () => {
       address: cityName(),
       phone: number("010-####-####"),
     };
-    const result = await userServiceInstance.update(mockData);
+    const result = await userService.update(mockData);
     expect(Number(result)).toBe(1);
   });
 });
 
 describe("User Delete Test", () => {
   test("User delete", async () => {
-    const user = await userServiceInstance.getUserById(1);
+    const user = await userService.getUserById(1);
     if (user.isDeleted === false) {
-      const result = await userServiceInstance.softDelete(1);
+      const result = await userService.softDelete(1);
       expect(Number(result)).toBe(1);
     }
   });
