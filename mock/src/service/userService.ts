@@ -17,9 +17,21 @@ class UserService {
     return UserService.instance;
   }
 
+  public async data_validate(data: any) {
+    // TODO: Renaming
+    // TODO: Create parameter interface
+    Object.values(data).map((el: any) => {
+      if (_.isUndefined(el) || _.isNull(el)) {
+        throw new Error("Properies should be defined");
+      }
+    });
+    return;
+  }
+
   public async create(obj: IUserCreate | any) {
     const t = await Sequelize.transaction();
     try {
+      this.data_validate(obj);
       const user = await User.create(obj);
       t.commit();
       return user;
