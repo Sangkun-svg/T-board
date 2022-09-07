@@ -3,24 +3,6 @@ import { userController } from "../controller";
 
 export const userRouter = express.Router();
 
-const create = (req: Request, res: Response, next: NextFunction) => {
-  userController
-    .create(req.body)
-    .then((response) => res.send(response))
-    .then((res) => res.sendStatus(200))
-    .catch((err) => {
-      if (err) res.sendStatus(500);
-    });
-};
-const update = (req: Request, res: Response, next: NextFunction) => {
-  userController.update(req.body).then((response) => res.send(response));
-};
-const deleteUser = (req: Request, res: Response, next: NextFunction) => {
-  userController
-    .delete(Number(req.params.id))
-    .then((response) => res.send(response));
-};
-
 const getUsers = (req: Request, res: Response, next: NextFunction) => {
   userController
     .getUsers()
@@ -43,10 +25,30 @@ const getUserById = (req: Request, res: Response, next: NextFunction) => {
       return err;
     });
 };
+const create = async (req: Request, res: Response, next: NextFunction) => {
+  await userController
+    .create(req.body)
+    .then((response) => res.send({ response: response, statusCode: 201 }))
+    .catch((err) => {
+      if (err) {
+        return res.sendStatus(500);
+      }
+    });
+};
+
+// DIVIDER
+
+const update = (req: Request, res: Response, next: NextFunction) => {
+  userController.update(req.body).then((response) => res.send(response));
+};
+const deleteUser = (req: Request, res: Response, next: NextFunction) => {
+  userController
+    .delete(Number(req.params.id))
+    .then((response) => res.send(response));
+};
 
 userRouter.route("/").get(getUsers);
-userRouter.route("/create").get(create);
-userRouter.route("/update").put(update);
+userRouter.route("/create").post(create);
 userRouter
   .route("/:id") //
   .get(getUserById)

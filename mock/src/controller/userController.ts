@@ -12,6 +12,7 @@ import {
   Patch,
 } from "tsoa";
 import { userService } from "../service";
+import { IUserCreate } from "../interface/request";
 
 @Route("member")
 @SuccessResponse("200", "successfully")
@@ -37,7 +38,7 @@ export class UserController extends Controller {
     return result;
   }
   @Post("/create")
-  public async create(data: Object | any): Promise<any> {
+  public async create(data: IUserCreate): Promise<any> {
     const result = await this.userService.create(data);
     return result;
   }
@@ -48,7 +49,7 @@ export class UserController extends Controller {
   }
   @Patch("/delete")
   public async delete(id: number): Promise<any> {
-    const result = await this.userService.softDelete(id);
+    const result = await this.userService.delete(id);
     return result;
   }
 }

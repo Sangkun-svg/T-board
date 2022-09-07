@@ -65,7 +65,7 @@ class UserService {
     }
   }
 
-  public async softDelete(id: number) {
+  public async delete(id: number) {
     const t = await Sequelize.transaction();
     try {
       const result = await User.update(
@@ -76,22 +76,6 @@ class UserService {
           },
         }
       );
-      t.commit();
-      return result;
-    } catch (error) {
-      await t.rollback();
-      throw new Error(); //TODO: need to error handling
-    }
-  }
-
-  public async hardDelete(id: number) {
-    const t = await Sequelize.transaction();
-    try {
-      const result = await User.destroy({
-        where: {
-          id: id,
-        },
-      });
       t.commit();
       return result;
     } catch (error) {
