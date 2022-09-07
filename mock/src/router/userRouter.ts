@@ -9,7 +9,10 @@ const getUsers = (req: Request, res: Response, next: NextFunction) => {
     .then((response) => res.send(response))
     .then((res) => res.sendStatus(200))
     .catch((err) => {
-      !err ?? res.sendStatus(500);
+      if (err) {
+        console.error(err);
+        return res.sendStatus(500);
+      }
     });
 };
 const getUserById = (req: Request, res: Response, next: NextFunction) => {
@@ -21,8 +24,10 @@ const getUserById = (req: Request, res: Response, next: NextFunction) => {
     .then((response) => res.send(response))
     .catch((err) => {
       console.log(err);
-      if (err) res.sendStatus(500);
-      return err;
+      if (err) {
+        console.error(err);
+        return res.sendStatus(500);
+      }
     });
 };
 const create = async (req: Request, res: Response, next: NextFunction) => {
@@ -31,6 +36,7 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
     .then((response) => res.send({ response: response, statusCode: 201 }))
     .catch((err) => {
       if (err) {
+        console.error(err);
         return res.sendStatus(500);
       }
     });
@@ -39,7 +45,15 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
 // DIVIDER
 
 const update = (req: Request, res: Response, next: NextFunction) => {
-  userController.update(req.body).then((response) => res.send(response));
+  userController
+    .update(req.body)
+    .then(() => res.sendStatus(201))
+    .catch((err) => {
+      if (err) {
+        console.error(err);
+        return res.sendStatus(500);
+      }
+    });
 };
 const deleteUser = (req: Request, res: Response, next: NextFunction) => {
   userController
@@ -49,6 +63,7 @@ const deleteUser = (req: Request, res: Response, next: NextFunction) => {
 
 userRouter.route("/").get(getUsers);
 userRouter.route("/create").post(create);
+userRouter.route("/update").put(update);
 userRouter
   .route("/:id") //
   .get(getUserById)
