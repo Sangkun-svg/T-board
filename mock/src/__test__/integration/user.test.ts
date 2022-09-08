@@ -71,3 +71,30 @@ describe("[GET]: /api/user/:id", () => {
     });
   });
 });
+
+describe("[POST]: /api/user/create", () => {
+  describe("given the user data of all is valid", () => {
+    it("should return a SUCCESS 200 status and created User data", async () => {
+      const {
+        body: { response, statusCode },
+      } = await request(app).post(`/api/user/create`).send(MOCK_USER_CREATE);
+      expect(statusCode).toBe(201);
+      expect(response).toStrictEqual(
+        expect.objectContaining({
+          name: MOCK_USER_CREATE.name,
+          email: MOCK_USER_CREATE.email,
+          address: MOCK_USER_CREATE.address,
+          phone: MOCK_USER_CREATE.phone,
+        })
+      );
+    });
+  });
+  describe("given the undefined or Null instead of validated user data", () => {
+    it("should return a ERROR: 500 status", async () => {
+      const { statusCode } = await request(app)
+        .post(`/api/user/create`)
+        .send(undefined);
+      expect(statusCode).toBe(500);
+    });
+  });
+});
