@@ -17,25 +17,34 @@ class UserService {
     return UserService.instance;
   }
 
-  public async data_validate(data: any) {
+  public async validation(data: any): Promise<Boolean> {
     // TODO: Renaming
     // TODO: Create parameter interface
+
+    let isValidate = true; // .. 흠 boolean 초기값에 대해 고민해봐야할듯
+    if (_.isEmpty(data)) {
+      isValidate = false;
+    }
     Object.values(data).map((el: any) => {
       if (_.isUndefined(el) || _.isNull(el)) {
-        throw new Error("Properies should be defined");
+        isValidate = false;
       }
     });
-    return;
+    return isValidate;
   }
 
-  public async create(obj: IUserCreate | any) {
+  public async create(obj: IUserCreate) {
     const t = await Sequelize.transaction();
     try {
-      this.data_validate(obj);
-      const user = await User.create(obj);
+      const isValidate = await this.validation(obj);
+      if (!isValidate) {
+        throw new Error("Data must be pass validation");
+      }
+      const user = await User.create(obj as any);
       t.commit();
       return user;
     } catch (error) {
+      console.log(error);
       await t.rollback();
       throw new Error(); //TODO: need to error handling
     }
@@ -44,6 +53,10 @@ class UserService {
   public async update(obj: IUserUpdate) {
     const t = await Sequelize.transaction();
     try {
+      const isValidate = await this.validation(obj);
+      if (!isValidate) {
+        throw new Error("Data must be pass validation");
+      }
       const result = await User.update(
         {
           name: obj.name,
@@ -57,9 +70,13 @@ class UserService {
           },
         }
       );
+      if ((result as unknown as number) === 0) {
+        throw new Error("Update fail");
+      }
       t.commit();
       return result;
     } catch (error) {
+      console.log(error);
       await t.rollback();
       throw new Error(); //TODO: need to error handling
     }
@@ -68,6 +85,11 @@ class UserService {
   public async delete(id: number) {
     const t = await Sequelize.transaction();
     try {
+      const isValidate = await this.validation(id);
+      if (!isValidate) {
+        throw new Error("Data must be pass validation");
+      }
+
       const result = await User.update(
         { isDeleted: true },
         {
