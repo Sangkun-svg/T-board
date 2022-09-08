@@ -121,3 +121,38 @@ describe("[PUT]: /api/user/update", () => {
     });
   });
 });
+describe("[DELETE]: /api/user/delete", () => {
+  describe("given the user data of is valid", () => {
+    it.only("should return a SUCCESS 200 status & soft delete user", async () => {
+      const id: number = 5;
+      const { statusCode } = await request(app).delete(
+        `/api/user/delete/${id}`
+      );
+      expect(statusCode).toBe(200);
+    });
+  });
+
+  describe("given the user data of all is valid", () => {
+    describe("Id is not exist", () => {
+      it("should return a ERROR: 500 status", async () => {
+        const overId: number = 10000;
+        const { statusCode } = await request(app).delete(
+          `/api/user/delete/${overId}`
+        );
+        expect(statusCode).toBe(500);
+      });
+    });
+
+    describe("id type is not number", () => {
+      // TODO: describe 문장 수정 요함
+      it("should return a ERROR: 404 status", async () => {
+        const stringUserId: string = "user-123";
+        const { statusCode } = await request(app).delete(
+          `/api/user/delete/${stringUserId}`
+        );
+        expect(statusCode).toBe(404);
+        // TODO: 404 middleware 로 처리하기 -> router 에서 분기처리 ㄴㄴ
+      });
+    });
+  });
+});
