@@ -7,7 +7,6 @@ const getUsers = (req: Request, res: Response, next: NextFunction) => {
   userController
     .getUsers()
     .then((response) => res.send(response))
-    .then((res) => res.sendStatus(200))
     .catch((err) => {
       if (err) {
         console.error(err);
@@ -42,12 +41,10 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
     });
 };
 
-// DIVIDER
-
 const update = (req: Request, res: Response, next: NextFunction) => {
   userController
     .update(req.body)
-    .then(() => res.sendStatus(201))
+    .then((response) => res.send(response))
     .catch((err) => {
       if (err) {
         console.error(err);
@@ -55,16 +52,24 @@ const update = (req: Request, res: Response, next: NextFunction) => {
       }
     });
 };
+
 const deleteUser = (req: Request, res: Response, next: NextFunction) => {
+  if (!Number(req.params.id)) {
+    return res.sendStatus(404);
+  }
   userController
     .delete(Number(req.params.id))
-    .then((response) => res.send(response));
+    .then((response) => res.send(response))
+    .catch((err) => {
+      if (err) {
+        console.error(err);
+        return res.sendStatus(500);
+      }
+    });
 };
 
 userRouter.route("/").get(getUsers);
 userRouter.route("/create").post(create);
 userRouter.route("/update").put(update);
-userRouter
-  .route("/:id") //
-  .get(getUserById)
-  .delete(deleteUser);
+userRouter.route("/delete/:id").delete(deleteUser);
+userRouter.route("/:id").get(getUserById);
