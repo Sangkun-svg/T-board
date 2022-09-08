@@ -17,12 +17,11 @@ class UserService {
     return UserService.instance;
   }
 
-  public async validation(data: any): Promise<Boolean> {
+  public validation(data: any): Boolean {
     // TODO: Renaming
     // TODO: Create parameter interface
-
     let isValidate = true; // .. 흠 boolean 초기값에 대해 고민해봐야할듯
-    if (_.isEmpty(data)) {
+    if (!!_.isEmpty(data)) {
       isValidate = false;
     }
     Object.values(data).map((el: any) => {
@@ -85,11 +84,13 @@ class UserService {
   public async delete(id: number) {
     const t = await Sequelize.transaction();
     try {
-      const isValidate = await this.validation(id);
-      if (!isValidate) {
-        throw new Error("Data must be pass validation");
+      if (_.isNaN(id) || typeof id !== "number") {
+        throw new Error("can not use argument");
       }
-
+      const target = await User.findByPk(id);
+      if (this.validation(target) === false) {
+        throw new Error("User is not define");
+      }
       const result = await User.update(
         { isDeleted: true },
         {
@@ -101,6 +102,7 @@ class UserService {
       t.commit();
       return result;
     } catch (error) {
+      console.error(error);
       await t.rollback();
       throw new Error(); //TODO: need to error handling
     }
