@@ -98,3 +98,26 @@ describe("[POST]: /api/user/create", () => {
     });
   });
 });
+
+describe("[PUT]: /api/user/update", () => {
+  describe("given the user data of all is valid", () => {
+    it("should return a SUCCESS 200 status and created User data", async () => {
+      const { statusCode } = await request(app).put("/api/user/update").send({
+        id: 1,
+        name: "Sangkun_isUpdate",
+        email: "Sangkun@email.com_isUpdate",
+        phone: "010-0000-0000_isUpdate",
+        address: "Seoul , Korea_isUpdate",
+      });
+      expect(statusCode).toBe(200);
+    });
+  });
+  describe("given the undefined or Null instead of validated user data", () => {
+    it("should return a ERROR: 500 status", async () => {
+      const { statusCode, body } = await request(app)
+        .put("/api/user/update")
+        .send(undefined);
+      expect(statusCode).toBe(500);
+    });
+  });
+});
