@@ -1,5 +1,8 @@
-describe("first render page", () => {
-  it("passes", () => {
-    cy.visit("http://localhost:3000/");
+describe("main page", () => {
+  it("버튼 클릭", () => {
+    cy.visit("/").get("button.sk-button").click();
+    cy.on("window:alert", (text) => {
+      expect(text).to.contains("move create page");
+    });
   });
 });
