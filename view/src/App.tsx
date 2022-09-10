@@ -19,11 +19,12 @@ export const App = () => {
     phone: { number },
   } = faker;
 
-  const TableCells = ["Name", "E-mail", "Address(City)", "Phone"];
+  const TableCells = { 1: "Name", 2: "E-mail", 3: "Address(City)", 4: "Phone" };
 
   const users = Array(10)
     .fill(null)
-    .map(() => ({
+    .map((el, idx) => ({
+      id: idx,
       name: userName(),
       email: email(),
       address: cityName(),
@@ -37,16 +38,21 @@ export const App = () => {
         <Table size="small" aria-label="a dense table">
           <TableHeadCustom>
             <TableRow>
-              {TableCells.map((col) => {
-                return <TableCell align="center">{col}</TableCell>;
+              {Object.entries(TableCells).map((col) => {
+                let [keys, value] = col;
+                return (
+                  <TableCell key={keys} align="center">
+                    {value}
+                  </TableCell>
+                );
               })}
             </TableRow>
           </TableHeadCustom>
           <TableBody>
             {users.map((user) => {
-              const { name, email, address, phone } = user;
+              const { name, email, address, phone, id } = user;
               return (
-                <TableRow>
+                <TableRow key={id}>
                   <TableCell align="center">{name}</TableCell>
                   <TableCell align="center">{email}</TableCell>
                   <TableCell align="center">{address}</TableCell>
