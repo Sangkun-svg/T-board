@@ -7,7 +7,11 @@ export const CreateButton = () => {
   };
   return (
     <Wrapper>
-      <Button variant="outlined" onClick={handleCreateButton}>
+      <Button
+        className="sk-button"
+        variant="outlined"
+        onClick={handleCreateButton}
+      >
         Create
       </Button>
     </Wrapper>
