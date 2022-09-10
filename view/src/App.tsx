@@ -16,7 +16,7 @@ export const App = () => {
   const {
     internet: { userName, email },
     address: { cityName },
-    phone: { phoneNumber },
+    phone: { number },
   } = faker;
 
   const TableCells = ["Name", "E-mail", "Address(City)", "Phone"];
@@ -27,7 +27,7 @@ export const App = () => {
       name: userName(),
       email: email(),
       address: cityName(),
-      phone: phoneNumber("010-####-####"),
+      phone: number("010-####-####"),
     }));
 
   return (
