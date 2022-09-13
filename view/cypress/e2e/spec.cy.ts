@@ -1,8 +1,6 @@
 describe("main page", () => {
-  it("버튼 클릭", () => {
-    cy.visit("/").get("button.sk-button").click();
-    cy.on("window:alert", (text) => {
-      expect(text).to.contains("move create page");
-    });
+  it("open register modal", () => {
+    cy.visit("/").get("button.user-create-button").click();
+    cy.get(".c_userModal").should("be.visible");
   });
 });
