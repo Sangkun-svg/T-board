@@ -23,7 +23,6 @@ export const RegisterForm = () => {
 
   const handleChange = (prop) => (event) => {
     setData({ ...data, [prop]: event.target.value });
-    console.log(data);
   };
 
   const handleClickShowPassword = () => {
@@ -58,7 +57,7 @@ export const RegisterForm = () => {
       <FormControl sx={{ m: 1, width: "25ch" }} variant="standard">
         <Input
           id="password"
-          type="password"
+          type={data.showPassword ? "text" : "password"}
           value={data.password}
           placeholder="Password"
           onChange={handleChange("password")}
