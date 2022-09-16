@@ -25,6 +25,17 @@ export const RegisterForm = () => {
     setData({ ...data, [prop]: event.target.value });
   };
 
+  const handlePhoneNumberFormat = (prop) => (event) => {
+    const regex = /^[0-9]{0,11}$/;
+    let inputValue = event.target.value;
+    if (regex.test(inputValue)) {
+      setData({
+        ...data,
+        [prop]: inputValue,
+      });
+    }
+  };
+
   const handleClickShowPassword = () => {
     setData({
       ...data,
@@ -98,10 +109,10 @@ export const RegisterForm = () => {
         <TextField
           inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
           id="phone"
-          type="ㅜㅕㅡㅠㄷㄱ"
+          type="text"
           value={data.phone}
           placeholder="010-0000-0000"
-          onChange={handleChange("phone")}
+          onChange={handlePhoneNumberFormat("phone")}
         />
       </FormControl>
     </Box>
