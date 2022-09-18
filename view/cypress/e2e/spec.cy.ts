@@ -2,8 +2,10 @@ describe("main page", () => {
   before(() => {
     cy.visit("/");
   });
-  it("open register modal", () => {
+  it("it forcus on inputs", () => {
     cy.get("button.user-create-button").click();
-    cy.get(".c_userModal").should("be.visible");
+    cy.get("input[id=id]")
+      .type("UserId_123")
+      .should("have.value", "UserId_123");
   });
 });
