@@ -1,4 +1,4 @@
-import { Button, Modal, Box } from "@mui/material";
+import { Button, Modal } from "@mui/material";
 import styled from "styled-components";
 import * as React from "react";
 import { RegisterForm } from "../Form";
