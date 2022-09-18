@@ -1,6 +1,9 @@
 describe("main page", () => {
+  before(() => {
+    cy.visit("/");
+  });
   it("open register modal", () => {
-    cy.visit("/").get("button.user-create-button").click();
+    cy.get("button.user-create-button").click();
     cy.get(".c_userModal").should("be.visible");
   });
 });
