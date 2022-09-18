@@ -3,11 +3,9 @@ import {
   Box,
   InputAdornment,
   FormControl,
-  Input,
   IconButton,
 } from "@mui/material";
 import styled from "styled-components";
-
 import { IUser } from "../../../interface";
 const style = {
   position: "absolute",
