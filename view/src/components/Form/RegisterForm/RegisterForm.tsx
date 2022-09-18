@@ -5,30 +5,30 @@ import {
   FormControl,
   IconButton,
 } from "@mui/material";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { IUser } from "../../../interface";
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+import { registerFromStyle } from "../../../style";
+
 export const RegisterForm = () => {
-  // return <BoxCustom>Createing..</BoxCustom>;
+  const [id, setId] = useState<string>("");
+
+  const handleId = ({
+    target: { value },
+  }: React.ChangeEvent<HTMLInputElement>): void => {
+    setId(value);
+  };
+
   return (
-    <Box sx={style}>
-      <FormControl sx={{ m: 1, width: "25ch" }} variant="standard">
+    <Box sx={registerFromStyle}>
+      <FormControl sx={{ m: 5, width: "80%" }} variant="standard">
         <TextField
           id="id"
-          variant="standard"
           type="text"
           placeholder="ID"
-          // error={data.id === "" ? true : false} TODO: handling error state when click the create btn
+          variant="standard"
+          value={id}
+          onChange={handleId}
         />
       </FormControl>
     </Box>
