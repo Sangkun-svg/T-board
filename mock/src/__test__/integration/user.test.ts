@@ -1,7 +1,7 @@
 import { app } from "../../app";
 import request from "supertest";
 import { MOCK_USER_ID_1, MOCK_USER_CREATE } from "../../constant/forTest";
-import _, { over } from "lodash";
+import _ from "lodash";
 
 // TODO: Http StateCode 를 준수하면서 테스트하라
 // 즉 , Http StateCode 를 준수하여 테스트하기 좋은 코드를 짜라
